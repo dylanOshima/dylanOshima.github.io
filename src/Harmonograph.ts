@@ -1,6 +1,6 @@
 'use strict';
 
-type PendulumParams = {
+export type PendulumParams = {
   frequency: number,
   phase: number,
   amplitude: number,
