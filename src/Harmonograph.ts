@@ -26,7 +26,7 @@ class Pendulum {
   constructor(options: PendulumParams, func = Math.sin) {
     const { frequency, phase, amplitude, halflife } = options;
     this.func = func;
-    this.frequency = frequency;
+    this.frequency = this.toRadians(frequency);
     this.phase = phase;
     this.amplitude = amplitude;
     this.damping = halflife;
@@ -37,7 +37,8 @@ class Pendulum {
   }
 
   getValue(t:number): number {
-    return this.amplitude*Math.sin(t*this.frequency + this.phase)*Math.exp(-(this.damping*t));
+    const phase = this.toRadians(t * this.phase) ;
+    return this.amplitude * Math.sin(t * this.frequency + phase)*Math.exp(-(this.damping*t));
   }
 }
 
