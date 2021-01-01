@@ -32,13 +32,17 @@ class Pendulum {
     this.damping = halflife;
   }
 
+  set setFrequency(f: number) {
+    this.frequency = f;
+  }
+
   toRadians(v: number) {
     return v * Math.PI / 180;
   }
 
-  getValue(t:number): number {
-    const phase = this.toRadians(t * this.phase) ;
-    return this.amplitude * Math.sin(t * this.frequency + phase)*Math.exp(-(this.damping*t));
+  getValue(i:number, t:number): number {
+    const phase = this.toRadians(0.3 * t * this.phase);
+    return this.amplitude * Math.sin(i * this.frequency + phase)*Math.exp(-(this.damping*i));
   }
 }
 
@@ -54,8 +58,8 @@ class Harmonograph {
    *   t represents time.
    */
 
-  getX: (t: number) => number;
-  getY: (t:number) => number;
+  getX: (i: number, t: number) => number;
+  getY: (i: number, t:number) => number;
 
   constructor(
     xParams: PendulumParams[], 
@@ -65,13 +69,13 @@ class Harmonograph {
     const xPendulums = xParams.map(param => new Pendulum(param));
     const yPendulums = yParams.map(param => new Pendulum(param, Math.cos));
 
-    this.getX = function(t) {
-      const values = xPendulums.map(pend => pend.getValue(t));
+    this.getX = function(i, t) {
+      const values = xPendulums.map(pend => pend.getValue(i, t));
       return values.reduce((val, sum) => val + sum);
     }
 
-    this.getY = function(t) {
-      const values = yPendulums.map(pend => pend.getValue(t));
+    this.getY = function(i, t) {
+      const values = yPendulums.map(pend => pend.getValue(i, t));
       return values.reduce((val, sum) => val + sum);
     }
   }

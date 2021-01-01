@@ -43,9 +43,9 @@ class HarmonographView {
     // Drawing the points
     this.ctx.clearRect(0, 0, width, height); 
     this.ctx.beginPath();
-    for(let i=0; i<t; i++) {
-      const x = cx + scale * this.harmonograph.getX(i);
-      const y = cy + scale * this.harmonograph.getY(i);
+    for(let i=0; i<10000; i++) {
+      const x = cx + scale * this.harmonograph.getX(i, t);
+      const y = cy + scale * this.harmonograph.getY(i, t);
       if(i <= 1) this.ctx.moveTo(cx, cy)
       else this.ctx.lineTo(x, y);
     }
@@ -100,8 +100,8 @@ function startHarmonograph() {
   }
 
   // Initialize variables
-  const xParams = [generatePendulumParams(1.1,0.0101,220,0.0001), generatePendulumParams(1.01,0.0101,50,0.0001)];
-  const yParams = [generatePendulumParams(-2,0.0731,30,0.0001), generatePendulumParams(-1,0.0731,100,0.0001)];
+  const xParams = [generatePendulumParams(1.1,0.0101,220,0), generatePendulumParams(1.01,0.0101,50,0)];
+  const yParams = [generatePendulumParams(-2,0.0731,30,0), generatePendulumParams(-1,0.0731,100,0)];
   const harm = new HarmonographView(canvas, ctx, xParams, yParams);
 
   window.addEventListener('resize', () => harm.resize(), false);
