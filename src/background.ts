@@ -1,15 +1,18 @@
 'use strict';
 import Harmonograph from './Harmonograph';
-import { generatePendulumParams,PendulumParams } from './Harmonograph';
+import { generatePendulumParams, PendulumParams } from './Harmonograph';
 
 class HarmonographView {
+  /**
+   * Used to render the harmonograph on the canvas. 
+   */
 
+  limit = 20;
+  t = 1;  // The timer for the current state of animation
   harmonograph: Harmonograph;
   ctx: CanvasRenderingContext2D;
-  limit: number;
-  t: number;
   canvas: HTMLCanvasElement;
-  timerRef?: number;
+  timerRef?: NodeJS.Timeout;
 
   constructor(
     canvas: HTMLCanvasElement, 
@@ -17,8 +20,6 @@ class HarmonographView {
     xParams: PendulumParams[],
     yParams: PendulumParams[]
   ) {
-    this.t = 1;
-    this.limit = 20;
     this.ctx = context;
     this.canvas = canvas;
     this.harmonograph = new Harmonograph(xParams, yParams);
@@ -31,28 +32,25 @@ class HarmonographView {
     this.animate();
   }
 
-  draw() {
-    // Reset if we get too large
-    if(this.t > 1000) return this.stopAnimating();
-
-    const width = this.canvas.width,
-          height = this.canvas.height;
-    this.ctx.clearRect(0, 0, width, height); 
+  draw(t:number) {
+    const width = this.canvas.width;
+    const height = this.canvas.height;
     const cx = width/2;
     const cy = height/2;
     const size = Math.min(width, height);
-    const scale = 0.5*size / 200; // The denominator changes the zoom factor 
-
+    const scale = 1.45*size / 1000; //Math.abs(200*Math.sin(0.0001*t)); // The denominator changes the zoom factor 
+    
+    // Drawing the points
+    this.ctx.clearRect(0, 0, width, height); 
     this.ctx.beginPath();
-    this.ctx.moveTo(cx, cy);
-    for(let i=0; i<this.t; i++) {
-      // generate points
+    for(let i=1; i<t; i++) {
       const x = cx + scale * this.harmonograph.getX(i);
       const y = cy + scale * this.harmonograph.getY(i);
-  
-      this.ctx.lineTo(x, y);
+      if(i === 1) this.ctx.moveTo(cx, cy)
+      else this.ctx.lineTo(x, y);
     }
 
+    // Coloring
     const gradient = this.ctx.createRadialGradient(cx, cy, this.limit, cx, cy, size/2);
     gradient.addColorStop(0, 'rgba(10,20,200, 0.4)');
     gradient.addColorStop(0.7, 'rgba(200,100,15, 0.2)');
@@ -62,15 +60,26 @@ class HarmonographView {
 
   animate() {
     this.t += 1;
-    this.draw();
-    console.log('Animating!')
-    this.timerRef = requestAnimationFrame(() => this.animate());
+    // Reset if we get too large
+    if(this.t > 1000) this.stopAnimating();
+    else {
+      this.draw(this.t);
+      this.timerRef = setTimeout(() => this.animate(), 100);
+    }
   }
 
   stopAnimating() {
     if(this.timerRef != null) {
-      window.cancelAnimationFrame(this.timerRef);
+      window.clearTimeout(this.timerRef);
     }
+  }
+
+  save() {
+    const link = document.createElement('a');
+    link.download = 'background.png';
+    link.href = this.canvas.toDataURL()
+    link.click();
+    link.remove();
   }
 }
 
@@ -88,11 +97,10 @@ function startHarmonograph() {
   }
 
   // Initialize variables
-  const xParams = [generatePendulumParams(1,0.5,70,0.001), generatePendulumParams(2,1,70,0.001)];
-  const yParams = [generatePendulumParams(3,1.5,70,0.001), generatePendulumParams(4,2,70,0.001)];
+  const xParams = [generatePendulumParams(1.5,0.003,150,0.001), generatePendulumParams(1.5,0.0093,150,0.001)];
+  const yParams = [generatePendulumParams(1,0.001,150,0.001), generatePendulumParams(1,0.0001,150,0.001)];
   const harm = new HarmonographView(canvas, ctx, xParams, yParams);
 
-  // window.addEventListener('mousemove', () => harm.animate(), false);
   window.addEventListener('resize', () => harm.resize(), false);
   harm.resize();
 

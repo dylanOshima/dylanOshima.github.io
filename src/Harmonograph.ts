@@ -17,18 +17,23 @@ export function generatePendulumParams(frequency:number, phase:number, amplitude
 }
 
 class Pendulum {
+  func: (x: number) => number;
   frequency: number;
   phase: number;
   amplitude: number;
   damping: number;
 
-  constructor(options: PendulumParams) {
+  constructor(options: PendulumParams, func = Math.sin) {
     const { frequency, phase, amplitude, halflife } = options;
-
+    this.func = func;
     this.frequency = frequency;
     this.phase = phase;
     this.amplitude = amplitude;
-    this.damping = -Math.LN2*halflife;
+    this.damping = halflife;
+  }
+
+  toRadians(v: number) {
+    return v * Math.PI / 180;
   }
 
   getValue(t:number): number {
@@ -57,11 +62,7 @@ class Harmonograph {
     // rotating: PendulumParams?
   ) {
     const xPendulums = xParams.map(param => new Pendulum(param));
-    const yPendulums = yParams.map(param => new Pendulum(param));
-    // let rotation;
-    // if( rotating != null ){
-    //   rotation = new Pendulum(rotating);
-    // }
+    const yPendulums = yParams.map(param => new Pendulum(param, Math.cos));
 
     this.getX = function(t) {
       const values = xPendulums.map(pend => pend.getValue(t));
@@ -69,7 +70,7 @@ class Harmonograph {
     }
 
     this.getY = function(t) {
-        const values = yPendulums.map(pend => pend.getValue(t));
+      const values = yPendulums.map(pend => pend.getValue(t));
       return values.reduce((val, sum) => val + sum);
     }
   }
