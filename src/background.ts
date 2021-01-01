@@ -95,6 +95,10 @@ function startHarmonograph() {
   // window.addEventListener('mousemove', () => harm.animate(), false);
   window.addEventListener('resize', () => harm.resize(), false);
   harm.resize();
+
+  // Easter Egg!
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (window as any).getHarmonographView = () => harm;
 }
 
 window.addEventListener('DOMContentLoaded', startHarmonograph);
