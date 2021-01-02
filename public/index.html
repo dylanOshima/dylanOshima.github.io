@@ -7,24 +7,28 @@
   <link rel='stylesheet' href='styles.css'>
 </head>
 <body>
-  <canvas width="100vw" height="100vh" id="background">Uh oh, there's supposed to be a beautiful harmonograph here. Have you seen it?</canvas>
+  <canvas width="100vw" height="100vh" id="background">Uh oh, there's supposed to be a beautiful harmonograph here. Can you find it?</canvas>
   <div class="parent-wrapper">
-    <nav>
-      <ul>
-        <li class="nav-item"><a href="/about">About</a></li>
-        <li class="nav-item"><a href="/work">Work</a></li>
-        <li class="nav-item"><a href="/blog">Blog</a></li>
-        <li class="nav-item"><a href="/art">Art</a></li>
-      </ul>
-    </nav>
-    <h1 class="title">DRO</h1>
+    <h1 id="title">DRO</h1>
     <p class="blurb">
       Mabuhay! Welcome to my little spot on the internet. 
       I'm a <code id='curr-age'></code> year old 
       software engineer currently in <code id='curr-loc'>the Philippines</code>.
+    </p>
+    <p class="blurb">
       I am currently finishing my last semester of University graduating with a degree
       in Computer Science and Artificial Intelligence. Come get to know me!
     </p>
+    <!-- <p class="blurb">
+      <i>Also if the harmonograph makes cool drawings please send me the images on twitter: @Doctor016</i>
+    </p> -->
+    <ul id="nav">
+      <li class="nav-item"><a href="/art">Art</a></li>
+      <li class="nav-item"><a href="/bio">About</a></li>
+      <li class="nav-item"><a href="/blog">Blog</a></li>
+      <li class="nav-item"><a href="/chat">Chat</a></li>
+      <li class="nav-item"><a href="/work">Work</a></li>
+    </ul>
   </div>
   <script src='main.bundle.js'></script>
   <script src='background.bundle.js'></script>
