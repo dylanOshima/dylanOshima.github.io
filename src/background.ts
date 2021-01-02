@@ -6,7 +6,7 @@ class HarmonographView {
   /**
    * Used to render the harmonograph on the canvas. 
    */
-
+  num_points = 10000
   limit = 20;
   t = 1;  // The timer for the current state of animation
   harmonograph: Harmonograph;
@@ -43,7 +43,7 @@ class HarmonographView {
     // Drawing the points
     this.ctx.clearRect(0, 0, width, height); 
     this.ctx.beginPath();
-    for(let i=0; i<10000; i++) {
+    for(let i=0; i<this.num_points; i++) {
       const x = cx + scale * this.harmonograph.getX(i, t);
       const y = cy + scale * this.harmonograph.getY(i, t);
       if(i <= 1) this.ctx.moveTo(cx, cy)
@@ -63,7 +63,7 @@ class HarmonographView {
 
     this.t += 1;
     // Reset if we get too large
-    if(this.t > 10000) this.stopAnimating();
+    if(this.t > this.num_points) this.stopAnimating();
     else {
       this.draw(this.t);
       this.timerRef = window.setTimeout(() => this.animate(), 1);
@@ -100,8 +100,8 @@ function startHarmonograph() {
   }
 
   // Initialize variables
-  const xParams = [generatePendulumParams(1.1,0.0101,220,0), generatePendulumParams(1.01,0.0101,50,0)];
-  const yParams = [generatePendulumParams(-2,0.0731,30,0), generatePendulumParams(-1,0.0731,100,0)];
+  const xParams = [generatePendulumParams(2.01,0.0101,220,0.0001), generatePendulumParams(-1,0.0731,150,0), generatePendulumParams(6,0.00134,200,0)];
+  const yParams = [generatePendulumParams(2,0.0101,100,0.0001), generatePendulumParams(-1,0.0731,100,0), generatePendulumParams(6.01,0.00134,200,0)];
   const harm = new HarmonographView(canvas, ctx, xParams, yParams);
 
   window.addEventListener('resize', () => harm.resize(), false);
