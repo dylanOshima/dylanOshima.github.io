@@ -7,10 +7,7 @@ const isDevMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   mode: isDevMode ? 'development' : 'production',
-  entry: {
-    main: path.join(__dirname, '/src/main.ts'),
-    background: path.join(__dirname, '/src/background.ts') 
-  },
+  entry: '/src/main.ts',
   devtool: 'inline-source-map',
   devServer: {
     contentBase: path.join(__dirname, './public'),

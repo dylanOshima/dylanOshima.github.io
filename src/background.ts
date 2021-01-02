@@ -88,7 +88,7 @@ class HarmonographView {
   }
 }
 
-function startHarmonograph() {
+export function startHarmonograph() {
   // Fetch Canvas element
   const canvas = <HTMLCanvasElement> document.getElementById('background');
 
@@ -114,4 +114,4 @@ function startHarmonograph() {
   (window as any).getHarmonographView = () => harm;
 }
 
-window.addEventListener('DOMContentLoaded', startHarmonograph);
+// window.addEventListener('DOMContentLoaded', );
