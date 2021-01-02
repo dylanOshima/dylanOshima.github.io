@@ -35,3 +35,13 @@ It's quite interesting the shapes you get when you don't convert the frequency i
 const xParams = [generatePendulumParams(1.5,1,150,0.001), generatePendulumParams(1.5,1,150,0.001)];
 const yParams = [generatePendulumParams(1,1,150,0.001), generatePendulumParams(1,1,150,0.001)];
 ```
+
+### Sunset Models
+![](./images/sunset-models.png)
+
+I realized that to capture that smooths hape you need to make the frequencies *almost* the same for both axis. I found a range of 0.1 and 0.001 is pretty good.
+
+```js
+const xParams = [generatePendulumParams(-3,0.0101,320,0.0001), generatePendulumParams(2,0.0731,150,0.0001), generatePendulumParams(4.01,0.00134,200,0)];
+const yParams = [generatePendulumParams(-3,0.0101,100,0.0001), generatePendulumParams(2.01,0.0731,100,0.0001), generatePendulumParams(4,0.00134,200,0)];
+```

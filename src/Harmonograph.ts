@@ -41,7 +41,7 @@ class Pendulum {
   }
 
   getValue(i:number, t:number): number {
-    const phase = this.toRadians(0.3 * t * this.phase);
+    const phase = this.toRadians(t * this.phase);
     return this.amplitude * Math.sin(i * this.frequency + phase)*Math.exp(-(this.damping*i));
   }
 }

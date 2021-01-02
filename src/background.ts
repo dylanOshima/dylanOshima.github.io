@@ -35,13 +35,13 @@ class HarmonographView {
   draw(t:number) {
     const width = this.canvas.width;
     const height = this.canvas.height;
-    const cx = 2*width/5;
-    const cy = 2*height/5;
+    const cx = width/8;
+    const cy = height/8;
     const size = Math.min(width, height);
-    const scale = 1.45*size / 500; // The denominator changes the zoom factor 
+    const scale = 1.45*size / (800*Math.abs(Math.sin(0.0008*t + 2)) + 400); // The function dictates the dilation
     
     // Drawing the points
-    this.ctx.clearRect(0, 0, width, height); 
+    this.ctx.clearRect(0, 0, width, height);
     this.ctx.beginPath();
     for(let i=0; i<this.num_points; i++) {
       const x = cx + scale * this.harmonograph.getX(i, t);
@@ -52,9 +52,11 @@ class HarmonographView {
 
     // Coloring
     const gradient = this.ctx.createRadialGradient(cx, cy, this.limit, cx, cy, size/2);
-    gradient.addColorStop(0, 'rgba(10,20,200, 0.4)');
-    gradient.addColorStop(0.7, 'rgba(200,100,15, 0.2)');
+    gradient.addColorStop(0, '#833ab4');
+    gradient.addColorStop(0.45, '#fd1d1d');
+    gradient.addColorStop(1, '#fcb045');
     this.ctx.strokeStyle = gradient;
+    this.ctx.globalAlpha = 0.3
     this.ctx.stroke();
   }
 
@@ -100,8 +102,8 @@ function startHarmonograph() {
   }
 
   // Initialize variables
-  const xParams = [generatePendulumParams(2.01,0.0101,220,0.0001), generatePendulumParams(-1,0.0731,150,0), generatePendulumParams(6,0.00134,200,0)];
-  const yParams = [generatePendulumParams(2,0.0101,100,0.0001), generatePendulumParams(-1,0.0731,100,0), generatePendulumParams(6.01,0.00134,200,0)];
+  const xParams = [generatePendulumParams(-3,0.0101,320,0.0001), generatePendulumParams(2,0.0731,150,0.0001), generatePendulumParams(4.01,0.00134,200,0)];
+  const yParams = [generatePendulumParams(-3,0.0101,100,0.0001), generatePendulumParams(2.01,0.0731,100,0.0001), generatePendulumParams(4,0.00134,200,0)];
   const harm = new HarmonographView(canvas, ctx, xParams, yParams);
 
   window.addEventListener('resize', () => harm.resize(), false);
