@@ -1,8 +1,11 @@
 'use strict';
 import { startHarmonograph } from './background';
+// import TextTransition from './TextTransition';
 
+/**
+ * Adds dynamic information to the welcome blurb.
+ */
 function initializeWelcomeBlurb() {
-  // Initialize dynamic information
   const greetings = ['Mabuhay', 'ようこそ', 'Bonjour', 'Welcome'];
   const age = (new Date()).getFullYear() - 1998;
   const location = 'Philippines';
@@ -15,8 +18,8 @@ function initializeWelcomeBlurb() {
   if (locEl != null ) locEl.textContent = location;
   if (welcomeEl != null ) {
     const ind = Math.round((greetings.length - 1) * Math.random());
-    const greeting = greetings[ind] ?? null;
-    welcomeEl.textContent = greeting;
+    const greeting = greetings[ind];
+    if (greeting != null) welcomeEl.textContent = greeting;
   }  
 }
 
@@ -25,4 +28,4 @@ function main() {
   startHarmonograph();
 }
 
-window.addEventListener('DOMContentLoaded', main);
+window.addEventListener('DOMContentLoaded', main, {once: true});

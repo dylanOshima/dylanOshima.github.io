@@ -88,7 +88,7 @@ class HarmonographView {
   }
 }
 
-export function startHarmonograph() {
+export function startHarmonograph():void {
   // Fetch Canvas element
   const canvas = <HTMLCanvasElement> document.getElementById('background');
 
@@ -113,5 +113,3 @@ export function startHarmonograph() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (window as any).getHarmonographView = () => harm;
 }
-
-// window.addEventListener('DOMContentLoaded', );

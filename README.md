@@ -27,3 +27,4 @@ I plan to use github pages to host the page since it's really meant to be quite 
 - [ ] Checkout how the site looks like on the backup fonts.
 - [ ] Make sure things load aptly 
     * Check that the harmonograph follows [best practices](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas)
+- [ ] Add some fancy transition for flipping through the welcome text in the Welcome page.

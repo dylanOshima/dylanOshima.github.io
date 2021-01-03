@@ -12,7 +12,7 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, './public'),
     // contentBasePublicPath: '/public/',
-    // watchContentBase: true,
+    watchContentBase: true,
     hot: true,
   },
   plugins: [],
@@ -57,7 +57,7 @@ module.exports = {
     extensions: [ '.tsx', '.ts', '.js' ],
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'public'),
     publicPath: '/public/',
   },
