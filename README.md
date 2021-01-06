@@ -28,3 +28,5 @@ I plan to use github pages to host the page since it's really meant to be quite 
 - [ ] Make sure things load aptly 
     * Check that the harmonograph follows [best practices](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas)
 - [ ] Add some fancy transition for flipping through the welcome text in the Welcome page.
+- [ ] Replace the `/lib/html_build` script with [webpack plugins](https://github.com/pcardune/handlebars-loader)
+    * The current implementation can be done with a mixture of the `handlebars-loader` and the `html-webpack-plugin`, but I have to figure out how export certain configurations since they're dependent on the file.
