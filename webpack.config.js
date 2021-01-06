@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
+/** PLUGINS */
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HTMLPlugins = require('./lib/html_build');
 
 const isDevMode = process.env.NODE_ENV !== 'production';
 
@@ -15,10 +17,12 @@ module.exports = {
     watchContentBase: true,
     hot: true,
   },
-  plugins: [],
+  plugins: [
+    new CleanWebpackPlugin(),
+    ...HTMLPlugins, 
+  ],
   module: {
     rules: [
-      // Linting
       {
         test: /\.(ts|tsx)$/,
         enforce: 'pre',
@@ -32,13 +36,11 @@ module.exports = {
         ],
         exclude: /node_modules/,
       },
-      // Typescript Transpiling
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/,
       },
-      // CSS files
       {
         test: /\.css$/i,
         use: [
@@ -46,11 +48,6 @@ module.exports = {
           { loader: 'css-loader', options: { sourceMap: isDevMode } },
         ],
       },
-      // Checks HTML for hot reloading
-      {
-        test: /\.html$/,
-        loader: "raw-loader"
-      }
     ],
   },
   resolve: {
