@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 /** PLUGINS */
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HTMLPlugins = require('./lib/html_build');
@@ -19,7 +20,8 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    ...HTMLPlugins, 
+    new MiniCssExtractPlugin(),
+    ...HTMLPlugins,
   ],
   module: {
     rules: [
@@ -42,11 +44,11 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.css$/i,
+        test: /\.css$/,
         use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader', options: { sourceMap: isDevMode } },
-        ],
+          MiniCssExtractPlugin.loader,
+          'css-loader'
+        ]
       },
     ],
   },

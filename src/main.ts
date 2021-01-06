@@ -1,5 +1,6 @@
 'use strict';
 import { startHarmonograph } from './background';
+import './styles.css';
 // import TextTransition from './TextTransition';
 
 /**
