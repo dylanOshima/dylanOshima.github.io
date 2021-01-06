@@ -31,3 +31,4 @@ I plan to use github pages to host the page since it's really meant to be quite 
 - [ ] Remove the need to import the CSS file in the `main.ts` file. 
 - [ ] Replace the `/lib/html_build` script with [webpack plugins](https://github.com/pcardune/handlebars-loader)
     * The current implementation can be done with a mixture of the `handlebars-loader` and the `html-webpack-plugin`, but I have to figure out how export certain configurations since they're dependent on the file.
+- [ ] [SEO] Fix the element semantics so that "DRO" is not the `<h1>` for every page
