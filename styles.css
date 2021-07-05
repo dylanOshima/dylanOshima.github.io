@@ -1,0 +1,192 @@
+/* This is meant to be a mobile first design */
+
+@import url('https://fonts.googleapis.com/css2?family=Karla&family=Lato&display=swap');
+
+:root {
+  --text-width: 40vw;
+  --page-bg-color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  :root {
+    --text-width: 80vw;
+  }
+}
+
+/* GENERAL STYLE */
+html, body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: var(--page-bg-color);
+  font-family: 'Lato', sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+h1, h2, h3, h4, .nav-item {
+  font-family: 'Karla', sans-serif;
+}
+
+h2 {
+  font-size: 2.25rem;
+  width: 100%;
+  text-align: center;
+  padding: 0.75rem 0;
+  margin: 1.5rem auto;
+}
+
+h3 {
+  font-size: 1.5rem;
+  width: var(--text-width);
+  margin: 0.5rem auto;
+}
+
+b {
+  font-weight: 700;
+}
+
+/* Anchor tag with no styling */
+a.plain-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+#title {
+  text-align: center;
+  font-size: 4rem;
+  font-weight: bold;
+  margin: 5vh 0 1rem 0;
+  letter-spacing: 1rem;
+}
+
+@media only screen and (min-width: 768px) {
+  #title {
+    font-size: 9rem;
+    font-weight: 200;
+    margin: 10vh 0 1rem 0;
+    letter-spacing: 3rem;
+  }
+  /* FIX: letter-spacing on last char */
+  #title a {
+    margin-right: -3rem;
+  }
+}
+
+#background {
+  z-index: -1;
+  left: 0;
+  top: 0;
+  position: fixed;
+}
+
+.paragraph-blurb {
+  line-height: 1.7rem;
+  width: var(--text-width);
+  margin: 0.5rem auto 2rem auto;
+}
+
+/* NAV */
+#nav {
+  padding: 0;
+  text-align: justify;
+  width: var(--text-width);
+  margin: 0 auto 4rem auto;
+}
+
+@media only screen and (min-width: 768px) {
+  #nav {
+    width: 40vw;
+  }  
+}
+
+#nav:after {
+  content: '';
+  display: inline-block;
+  width: 100%;
+}
+
+.nav-item {
+  list-style: none;
+  display: inline-block;
+  font-size: 2rem;
+  padding: 0.25rem 0.8rem;
+}
+
+@media only screen and (min-width: 768px) {
+  .nav-item {
+    font-size: 2.5rem;
+  }  
+}
+
+.nav-item:hover,
+.current-nav-item {
+  color: white;
+  background-color: black;
+  border-radius: 10px;
+}
+
+/* index.html */
+#title.title-home {
+  margin: 15vh 0 4rem 0;
+}
+
+@media only screen and (min-width: 768px) {
+  #title.title-home {
+    margin: 20vh 0 4rem 0;
+  }
+}
+
+/* blog.html */
+.article {
+  margin: 1rem 0.5rem;
+  padding: 1rem 1.5rem;
+  background-color: var(--page-bg-color);
+  border: 2px solid black;
+  border-radius: 20px;
+  /* Animations */
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+@media only screen and (min-width: 768px) {
+  .article {
+    width: 70vw;
+    margin: 1rem auto;
+    padding: 1rem 2rem;
+  }
+}
+
+.article .article-title {
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1.5rem;
+}
+
+.article h3 {
+  display: inline;
+  width: 70%;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.article .article-body {
+  margin-bottom: 2rem;
+}
+
+.article .article-tags,
+.article .article-date {
+  color: #737373;
+  font-weight: 200;
+}
+
+@media only screen and (min-width: 768px) {
+  .article:hover {
+    transform: scale(1.025);
+    box-shadow: #0000007a 0px 2px 5px 2px;
+  }
+}
